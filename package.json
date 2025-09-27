@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "datepicker": "^0.0.0",
+    "parsleyjs": "^2.9.2",
+    "select2": "^4.1.0-rc.0"
+  }
+}

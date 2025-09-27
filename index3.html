@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="p-4">
+    <h1 class="text-center mb-4">Register form</h1>
+
+    <form id="registerForm" class="w-50 mx-auto" data-parsley-validate>
+        <input type="text" id="fullname" name="fullname" class="form-control mb-2" placeholder="Повне ім’я" required
+            data-parsley-minlength="2"
+            data-parsley-maxlength="50"
+            data-parsley-pattern="^[А-Яа-яA-Za-zЁёЇїІіЄєҐґ\s\-]+$" 
+            data-parsley-required-message="Full name is required"
+            data-parsley-minlength-message="Min length is 2 characters"
+            data-parsley-maxlength-message="Max length is 50 characters"
+            data-parsley-pattern-message="Full name may only contain letters, spaces, and dashes">
+
+        <input type="file" id="avatar" name="avatar" class="form-control mb-2" required
+            data-parsley-required-message="Avatar is required" 
+            data-parsley-filemimetypes="image/jpeg, image/png">
+
+        <input type="date" id="birthday" name="birthday" class="form-control mb-2" required
+            data-parsley-required-message="Birthday is required" 
+            data-parsley-birthday
+            data-parsley-errors-container="#birthdayError">
+        <div id="birthdayError"></div>
+
+        <div class="mb-2">
+            <label class="form-label d-block">Стать:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="male" value="Male" required
+                    data-parsley-errors-container="#genderError" 
+                    data-parsley-required-message="Gender is required">
+                <label class="form-check-label" for="male">Чоловіча</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="female" value="Female">
+                <label class="form-check-label" for="female">Жіноча</label>
+            </div>
+            <div id="genderError"></div>
+        </div>
+
+        <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="subscribe" name="subscribe">
+            <label class="form-check-label" for="subscribe">Підписатися на новини</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+
+    <div id="result" class="mt-4 w-50 mx-auto"></div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/node_modules/parsleyjs/dist/parsley.min.js"></script>
+
+    <script>
+        Parsley.addValidator('birthday', {
+            validateString: value => {
+                const date = new Date(value);
+                return date >= new Date('1900-01-01') && date <= new Date();
+            },
+            messages: {
+                en: 'Min birthday is 01/01/1900 and must not be in the future'
+            }
+        });
+
+        $('#registerForm').parsley().on('form:submit', function () {
+            const fullname = $('#fullname').val().trim();
+            const birthday = $('#birthday').val();
+            const gender = $('input[name="gender"]:checked').val();
+            const subscribed = $('#subscribe').is(':checked') ? 'Yes' : 'No';
+            const avatarName = $('#avatar')[0].files[0]?.name || '—';
+
+            $('#result').html(`
+                <table class="table table-bordered mt-3">
+                    <thead><tr><th>Full name</th><th>Avatar</th><th>Birthday</th><th>Gender</th><th>Subscribed</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td>${fullname}</td>
+                            <td>${avatarName}</td>
+                            <td>${birthday}</td>
+                            <td>${gender}</td>
+                            <td>${subscribed}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `);
+            return false;
+        });
+    </script>
+</body>
+
+</html>

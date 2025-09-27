@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/node_modules/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+    <title>Jquery Plugins</title>
+</head>
+<body class="text-center">
+    <h1 class="text-center">Привіт плагін</h1>
+    <select class="form-select" multiple="multiple" style="width: 50%; margin: auto;">
+        <option value="a">Макарони</option>
+        <option value="b">Пельмені</option>
+        <option value="c">Вареники</option>
+        <option value="d">Сало</option>
+        <option value="e">Ковбаса</option>
+        <option value="f">Шашлик</option>
+        <option value="g">Піца</option>
+        <option value="h">Борщ</option>
+        <option value="i">Суп</option>
+        <option value="j">Компот</option>
+        <option value="k">Каша</option>
+        <option value="l">Пиріжки</option>
+        <option value="m">Пиріг</option>
+        <option value="n">Торт</option>
+        <option value="o">Печиво</option>
+        <option value="p">Морозиво</option>
+        <option value="q">Сир</option>
+        <option value="r">Йогурт</option>
+    </select>
+    <input type="text" name="selectedDate" id="my-date"></input>
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/node_modules/select2/dist/js/select2.min.js"></script>
+    <script src="/node_modules/select2/dist/js/i18n/uk.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+    <script>
+        
+        $.fn.select2.defaults.set("language", "uk");
+
+        $(document).ready(function() {
+            console.log('Jquery is working');
+            
+            $('select').select2();
+        });
+        $(function(){
+            $.datepicker.regional.language = {
+                dayNames: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"],
+                dayNamesMin: ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+                monthNames: ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"],
+                monthNamesShort: ["Січ", "Лют", "Бер", "Кві", "Тра", "Чер", "Лип", "Сер", "Вер", "Жов", "Лис", "Гру"],
+                prevText: "Попередній",
+                nextText: "Наступний",
+                dateFormat: "dd.mm.yy"
+            };
+            $.datepicker.setDefaults($.datepicker.regional.language);
+            $("#my-date").datepicker();
+        });
+    </script>
+    
+</body>
+</html>
